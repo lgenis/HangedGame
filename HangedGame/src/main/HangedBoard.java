@@ -20,7 +20,8 @@ public class HangedBoard {
 	
 	
 	public HangedBoard(){
-		//TODO complete definicion del contructor 
+		streak=0;
+
 	}
 	
 	
@@ -30,8 +31,13 @@ public class HangedBoard {
 	 * @param maxFails numero maximo de fallos posibles 
 	 */
 	public void startGame(char[] secret, int maxFails){
-		//TODO complete el metodo 
-		
+		this.wordSecret=secret;
+		this.maxFails=maxFails;
+		this.currentfails=0;
+		this.wordPlayer = new char[wordSecret.length];
+		for(int i=0; i<wordSecret.length; i++){
+			wordPlayer[i]='-';
+		}
 	}
 	
 	/**
@@ -40,40 +46,63 @@ public class HangedBoard {
 	 * @param maxFails numero maximo de fallos posibles 
 	 */
 	public void startGame(String secret, int maxFails){
-		//TODO complete el metodo 
-		
+		startGame(secret.toCharArray(), maxFails);
 	}
 	
 	/**
 	 * Reinicia todas las variables, el estado del juego queda como al iniciar la aplicacion
 	 */
-	public void reset(){
-		//TODO complete el metodo 
+	public void reset(char[] secret, int maxFails){
+		startGame(secret,  maxFails);
+		this.streak=0;
+		
 	}
 	
 	
 	public boolean hasLetterInWordSecret(char ch){
-		//TODO complete el metodo 
-		return false;
+		boolean r=false; 
+		for(int i=0; i<this.wordSecret.length; i++){
+			if(wordSecret[i]==ch){
+				r=true; break; 
+			}
+		}
+		
+		return r;
 	}
 	
 	public boolean hasLetterInWordPlayer(char ch){
-		//TODO complete el metodo 
-		return false;
+		boolean r=false; 
+		for(int i=0; i<this.wordPlayer.length; i++){
+			if(wordPlayer[i]==ch){
+				r=true; break; 
+			}
+		}
+		
+		return r;
 	}
 	
 	/**
 	 * @return si la palabra secreta es igual a la palabra del jugador 
 	 */
 	public boolean isWinner(){
-		return false; 
+		boolean r=true;
+		for (int i=0; i<wordPlayer.length; i++){
+			if (wordPlayer[i]!=wordSecret[i]){
+				r=false;
+				break;
+			}
+		}
+		return r;
 	}
 	
 	/**
 	 * @return si fails==maxFailsla 
 	 */
 	public boolean isGameOver(){
-		return false; 
+		boolean r=false;
+		if (currentfails==maxFails)
+			r=true;
+		return r; 
 	}
 	
 	
@@ -94,9 +123,24 @@ public class HangedBoard {
 			throw new RuntimeException("Error de programacion, wordPlayer ya contiene esta letra."
 					+ " Use el metodo hasLetterInWordPlayer() antes de invicar este metodo");
 		
-		//TODO completar este metodo
-		//TODO desarrollar un Test unitario para este metodo
-		return null; 	
+		if(!hasLetterInWordSecret(ch))
+			return new int[0]; 
+		
+		int contador=0;
+		for (int i=0; i<wordSecret.length; i++){
+			if(wordSecret[i]==ch)
+				contador++;
+		}
+		
+		int[] output=new int[contador];
+		for (int i=0, k=0; i<wordSecret.length;i++){
+			if (wordSecret[i]==ch){
+				wordPlayer[i]=ch;
+				output[k++]=i;
+			}
+		}
+		return output;
+	 	
 	}
 
 
