@@ -100,7 +100,7 @@ public class HangedBoard {
 	 */
 	public boolean isGameOver(){
 		boolean r=false;
-		if (currentfails==maxFails)
+		if (currentfails>=maxFails)
 			r=true;
 		return r; 
 	}
@@ -123,8 +123,10 @@ public class HangedBoard {
 			throw new RuntimeException("Error de programacion, wordPlayer ya contiene esta letra."
 					+ " Use el metodo hasLetterInWordPlayer() antes de invicar este metodo");
 		
-		if(!hasLetterInWordSecret(ch))
-			return new int[0]; 
+		if(!hasLetterInWordSecret(ch)){
+			currentfails++;
+			return new int[0];
+		}
 		
 		int contador=0;
 		for (int i=0; i<wordSecret.length; i++){

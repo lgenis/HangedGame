@@ -77,6 +77,7 @@ public class TestHangedBoard {
 		Assert.assertFalse(board.isGameOver());
 		board.addLetterToWordPlayer('A');
 		board.addLetterToWordPlayer('I');
-		Assert.assertFalse(board.isWinner());
+		Assert.assertTrue(board.isGameOver());
+		
 	}
 }
