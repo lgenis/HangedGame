@@ -20,21 +20,21 @@ public class UserInterface {
 		while(valid==null){
 			String option=Input.scannLine();
 			
-			if(option.toCharArray().length>1){
+		
 				if (option.equals("exit")){
 					valid=option; 
 					break;
 				}else if(option.equals("reset")){
 					valid=option;
 					break;
+				}else if(option.length()==1){
+					valid=option;
+					break;
+				}else{
+					System.out.println(option + " NO es opcion valida");
 				}
-			}else if(option.toCharArray().length==1){
-				valid=option;
-				break;
-			}else{
-				System.out.println(option + " NO es opcion valida");
-			}
 		}
+		
 		return hint;
 	}
 	
