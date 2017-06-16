@@ -35,7 +35,7 @@ public class UserInterface {
 				}
 		}
 		
-		return hint;
+		return valid;
 	}
 	
 	public static void showMenuAgain(boolean winner){
