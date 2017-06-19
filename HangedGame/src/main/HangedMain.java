@@ -51,6 +51,10 @@ public class HangedMain {
 					HangedBoard brd = new HangedBoard();
 					
 					brd.startGame(model.getNextWord().word, maxTries);
+					do{
+						
+					}while(brd.isGamOver() || brd.isWinner)
+					
 					break;
 					
 				case UserInterface.OPTION_SALIR:
