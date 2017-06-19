@@ -34,6 +34,12 @@ public class HangedMain {
 	 */
 
 	public static void main(String[] args) {
+		boolean exit=false;
+		int scor=0;
+		do{
+			UserInterface.
+			
+		}while(!exit);
 		
 	}
 	

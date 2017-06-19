@@ -95,6 +95,10 @@ public class HangedBoard {
 		return r;
 	}
 	
+	public void addStrike(){
+		this.strike++;
+	}
+	
 	/**
 	 * @return si fails==maxFailsla 
 	 */
