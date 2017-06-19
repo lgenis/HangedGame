@@ -6,6 +6,7 @@ public class UserInterface {
 	
 	public static final String OPTION_SALIR = "salir";
 	public static final String OPTION_JUGAR = "jugar";  
+	public static final String OPTION_DIFICULTAD = "dificultad";
 	
 
 	
@@ -27,9 +28,9 @@ public class UserInterface {
 		do{
 			
 			option = Input.scannLine().toLowerCase();
-			isOKI = !(option.equals("jugar")||
-							  option.equals("salir")||
-							  option.equals("dificultad")); 	
+			isOKI = !(option.equals(OPTION_JUGAR)||
+							  option.equals(OPTION_SALIR)||
+							  option.equals(OPTION_DIFICULTAD));
 			if(isOKI)
 				System.out.println("Opción no válida. Vuelva a intentarlo: ");
 			
@@ -42,8 +43,8 @@ public class UserInterface {
 	//Dorian:  
 	public static void showMenuBoard(String wordPlayer, String hint, int attepts){		
 		if(attepts<2){			
-			System.out.println("[Salir] Salir");
-			System.out.println("[Reset] Reset");			
+			System.out.println("salir");
+			System.out.println("reiniciar");			
 			System.out.println("Pista : " + hint);					
 			char[] c = wordPlayer.toCharArray();
 						
@@ -56,7 +57,7 @@ public class UserInterface {
 	
 	
 	//Luis:  github.com/lgenis/HangedGame/
-	public static String scannOpcionMenuBoad(){
+	public static String scanOpcionMenuBoad(){
 		String valid=null;
 		while(valid==null){
 			String option=Input.scannLine().toLowerCase();
@@ -99,7 +100,7 @@ public class UserInterface {
 	}
 	
 	
-	public static String scannOptionMenuEndGame(){
+	public static String scanOptionMenuEndGame(){
 		String key= Input.scannLine();
 		key = key.toUpperCase();	
 		String isKeyOk= null;				
@@ -119,7 +120,11 @@ public class UserInterface {
 		return isKeyOk; 
 	}
 	
+	public static int scanMaxTries(){
+		System.out.print("Introduzca numero maximo de intentos permitidos:");
+		return  Input.scannInt();
 	
+	}
 	
 	
 	

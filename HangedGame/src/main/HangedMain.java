@@ -36,8 +36,31 @@ public class HangedMain {
 	public static void main(String[] args) {
 		boolean exit=false;
 		int scor=0;
+		int maxTries=5;
+		String key;
+		
+		
+		
 		do{
-			UserInterface.
+			UserInterface.showMenuInit(scor);
+			key = UserInterface.scanMenuInicio();
+			
+			switch(key){
+				case UserInterface.OPTION_JUGAR:
+					HangedModel model = new HangedModel("diccionario.dict");
+					HangedBoard brd = new HangedBoard();
+					
+					brd.startGame(model.getNextWord().word, maxTries);
+					break;
+					
+				case UserInterface.OPTION_SALIR:
+					exit=true;
+					break;
+					
+				case UserInterface.OPTION_DIFICULTAD:
+					maxTries=UserInterface.scanMaxTries();
+					break;
+			}
 			
 		}while(!exit);
 		

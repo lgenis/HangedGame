@@ -96,7 +96,7 @@ public class HangedBoard {
 	}
 	
 	public void addStrike(){
-		this.strike++;
+		this.streak++;
 	}
 	
 	/**
@@ -160,7 +160,7 @@ public class HangedBoard {
 
 
 	/**
-	 * COntador de racha (strak)
+	 * Contador de racha (strak)
 	 * @return retorna el numero de partidas ganadas consecutivas
 	 */
 	public int getStreak() {

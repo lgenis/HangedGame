@@ -30,7 +30,7 @@ public class HangedModel {
 	 * Carga todo el diccionario de palabras desde el fichero
 	 */
 	private void loadWords(){
-		newWord= FileHelper.readFile(this.FILE_NAME);	
+		newWord= FileHelper.readFile(this.FILE_NAME);
 	}
 	
 	/**
