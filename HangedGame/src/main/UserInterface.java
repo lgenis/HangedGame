@@ -120,9 +120,30 @@ public class UserInterface {
 		return isKeyOk; 
 	}
 	
-	public static int scanMaxTries(){
-		System.out.print("Introduzca numero maximo de intentos permitidos:");
-		return  Input.scannInt();
+	public static int scanLevel(){
+		System.out.println("Introduzca Nivel de dificultad:");
+		System.out.println("1 - Facil");
+		System.out.println("2 - Medio");
+		System.out.println("3 - Dificil");
+		int inp=Input.scannInt();
+		switch (inp){
+			case (1):
+				return 5;
+
+			case 2:
+				return 4;
+				
+			case (3):
+				return 3;
+			
+			default:
+				System.out.println("Error, al seleccionar nivel.");
+				System.out.println("Se seleciona 1 por defecto.");
+				return 1;
+
+				
+		}
+		
 	
 	}
 	

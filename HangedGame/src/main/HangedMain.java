@@ -39,7 +39,8 @@ public class HangedMain {
 		int maxTries=5;
 		String key;
 		
-		
+		HangedModel model = new HangedModel("diccionario.dict");
+		HangedBoard brd = new HangedBoard();
 		
 		do{
 			UserInterface.showMenuInit(scor);
@@ -47,22 +48,18 @@ public class HangedMain {
 			
 			switch(key){
 				case UserInterface.OPTION_JUGAR:
-					HangedModel model = new HangedModel("diccionario.dict");
-					HangedBoard brd = new HangedBoard();
+					
 					
 					brd.startGame(model.getNextWord().word, maxTries);
-					do{
-						
-					}while(brd.isGamOver() || brd.isWinner)
 					
-					break;
+					loopGame(brd,maxTries); 
 					
 				case UserInterface.OPTION_SALIR:
 					exit=true;
 					break;
 					
 				case UserInterface.OPTION_DIFICULTAD:
-					maxTries=UserInterface.scanMaxTries();
+					maxTries=UserInterface.scanLevel();
 					break;
 			}
 			
@@ -70,4 +67,8 @@ public class HangedMain {
 		
 	}
 	
+	
+	public static void loopGame(HangedBoard board, int maxTry){
+		
+	}
 }
