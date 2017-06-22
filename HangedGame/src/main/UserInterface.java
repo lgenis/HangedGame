@@ -7,7 +7,10 @@ public class UserInterface {
 	public static final String OPTION_SALIR = "salir";
 	public static final String OPTION_JUGAR = "jugar";  
 	public static final String OPTION_DIFICULTAD = "dificultad";
+	public static final String OPTION_RESET="reset";
 	
+	public static final String OPTION_YES="SI";
+	public static final String OPTION_NO="NO";
 
 	
 	//Eduard github.com/lordespirit/HangedGame/tree/edu
@@ -19,7 +22,7 @@ public class UserInterface {
 		System.out.println("*******************");
 		System.out.println("Racha actual de " + score);
 		System.out.println("jugar\nsalir\ndificultad");
-		System.out.print("Elige una opción : ");	
+		System.out.print("Elige una opción : ");
 	}
 	
 	public static String scanMenuInicio(){
@@ -130,7 +133,7 @@ public class UserInterface {
 			case (1):
 				return 5;
 
-			case 2:
+			case (2):
 				return 4;
 				
 			case (3):
@@ -139,7 +142,7 @@ public class UserInterface {
 			default:
 				System.out.println("Error, al seleccionar nivel.");
 				System.out.println("Se seleciona 1 por defecto.");
-				return 1;
+				return 5;
 
 				
 		}

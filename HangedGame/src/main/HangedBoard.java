@@ -125,7 +125,7 @@ public class HangedBoard {
 	public int[] addLetterToWordPlayer(char ch){
 		if(hasLetterInWordPlayer(ch))
 			throw new RuntimeException("Error de programacion, wordPlayer ya contiene esta letra."
-					+ " Use el metodo hasLetterInWordPlayer() antes de invicar este metodo");
+					+ " Use el metodo hasLetterInWordPlayer() antes de invocar este metodo");
 		
 		if(!hasLetterInWordSecret(ch)){
 			currentfails++;
