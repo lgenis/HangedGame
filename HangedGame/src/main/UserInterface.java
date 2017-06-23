@@ -20,7 +20,7 @@ public class UserInterface {
 		System.out.println("*******************");
 		System.out.println("JUEGO DEL AHORCADO");
 		System.out.println("*******************");
-		System.out.println("Racha actual de " + score);
+		System.out.println("Racha record: " + score);
 		System.out.println("jugar\nsalir\ndificultad");
 		System.out.print("Elige una opción : ");
 	}
@@ -44,30 +44,30 @@ public class UserInterface {
 
 	
 	//Dorian:  
-	public static void showMenuBoard(String wordPlayer, String hint, int attepts){		
-		if(attepts<2){			
+	public static void showMenuBoard(char[] wordPlayer, String hint, int attepts){		
+		//if(attepts<2){			
 			System.out.println("salir");
-			System.out.println("reiniciar");			
+			System.out.println("reset");			
 			System.out.println("Pista : " + hint);					
-			char[] c = wordPlayer.toCharArray();
+			char[] c = wordPlayer;
 						
 			for(int i=0; i<c.length;i++){
 				System.out.print(c[i] + " ");			
 			}				
 			System.out.println("Intentos : " + attepts);			
-		}		
+		//}		
 	}
 	
 	
 	//Luis:  github.com/lgenis/HangedGame/
-	public static String scanOpcionMenuBoad(){
+	public static String scanOpcionMenuBoard(){
 		String valid=null;
 		while(valid==null){
 			String option=Input.scannLine().toLowerCase();
-				if (option.equals("salir")){
+				if (option.equals(OPTION_SALIR)){
 					valid=option; 
 					break;
-				}else if(option.equals("reiniciar")){
+				}else if(option.equals(OPTION_RESET)){
 					valid=option;
 					break;
 				}else if(option.length()==1){
@@ -86,10 +86,10 @@ public class UserInterface {
 	public static void showMenuAgain(boolean winner, int streak){
 		if (winner){
 			System.out.println("\n\n\t\t\t HAS GANADO \t\t\t");
-			System.out.print("\n\n\t\t Felicidades llevas " + streak + " racha");
+			System.out.print("\n\n\t\t Felicidades llevas " + (streak) + " racha");
 			if (streak>1)
 				System.out.print("s");
-			System.out.print("\n\n\t Quieres continuar jugando?  teclea Si o No");
+			System.out.print("\n\n\t Quieres continuar jugando?  teclea Si o No\n");
 			
 		}else{
 			System.out.println("\n\t\t\t ----- ");
@@ -98,7 +98,7 @@ public class UserInterface {
 			System.out.println("\t\t\t |   ^ ");
 			System.out.println("\t\t\t |_____");
 			System.out.println("\n\t\t\t GAME OVER");
-			System.out.print("\n\n\t Quieres continuar jugando?  teclea Si o No");
+			System.out.print("\n\n\t Quieres continuar jugando?  teclea Si o No\n");
 		}
 	}
 	
@@ -117,6 +117,7 @@ public class UserInterface {
 					break;
 				default:
 					System.out.print("\n\n\t Opcion no valida. Teclea Si o No. ");
+					key=key.toUpperCase();
 					break;			
 			}			
 		}

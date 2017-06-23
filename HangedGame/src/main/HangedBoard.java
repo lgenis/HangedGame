@@ -52,8 +52,8 @@ public class HangedBoard {
 	/**
 	 * Reinicia todas las variables, el estado del juego queda como al iniciar la aplicacion
 	 */
-	public void reset(char[] secret, int maxFails){
-		startGame(secret,  maxFails);
+	public void reset(){
+		//startGame(secret,  maxFails);
 		this.streak=0;
 		
 	}

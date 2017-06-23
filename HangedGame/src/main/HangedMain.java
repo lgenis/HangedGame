@@ -31,11 +31,11 @@ public class HangedMain {
 	
 	private static final int ACTION_PLAY =  1;
 	private static final int ACTION_SHOW_MENU_INI = 2; 
-	private static final int ACTION_EXIT =  9;
-	private static final int ACTION_LEVEL = 8;
-	private static final int ACTION_SHOW_MENU_AGAIN = 5;
-	
-	private static final int ACTION_RESET=7;
+	private static final int ACTION_EXIT =  3;
+	private static final int ACTION_LEVEL = 4;
+	private static final int ACTION_RESET=5;
+	private static final int ACTION_WINNER = 6;
+	private static final int ACTION_GAME_OVER = 7;
 
 
 	/**
@@ -45,105 +45,73 @@ public class HangedMain {
 
 	public static void main(String[] args) {
 		
-		int scor=0;
+		int maxScore=0;
 		int maxTries=5;
 		String key;
 		
 		int action = 2; 
 		
-		HangedModel model = new HangedModel("diccionario.dict");
+		HangedModel model = new HangedModel("C:\\poo\\git\\HangedGame\\HangedGame\\bin\\diccionario.dict");
 		HangedBoard brd = new HangedBoard();
+		HangedModel.SecretWord sw=null;
 		
-		do{
-			
-			
+		// TODO leet maxScore
+		// maxScore = 
+		
+		 do{
+						
 				switch(action){
 				
 					case ACTION_SHOW_MENU_INI:  {
-						     UserInterface.showMenuInit(scor);
-				             action=optionToAction(UserInterface.scanMenuInicio()); 
-				             
-				             
+						     UserInterface.showMenuInit(maxScore);					
+				             action=optionToAction(UserInterface.scanMenuInicio()); 			             				             
 					         break; 
-					}
-					
-					case ACTION_SHOW_MENU_AGAIN:  {
-					   
-						UserInterface.showMenuAgain(brd.isWinner(), brd.getStreak()); 
-			             action=optionToAction(UserInterface.scanOptionMenuEndGame()); 
-			             if (action==ACTION_PLAY && brd.isWinner()){
-			            	 brd.addStrike();
-			             }else
-			            	 action=ACTION_RESET;
+						}
+										
+					case ACTION_WINNER: 
+					case ACTION_GAME_OVER:  {				   
+						 UserInterface.showMenuAgain(brd.isWinner(), brd.getStreak()); 
+			             action=optionToAction(UserInterface.scanOptionMenuEndGame()); 			           
 				         break; 
-					}
-				          
-					
+						}
+				          					
 					case ACTION_PLAY:  {
-						HangedModel.SecretWord sw = model.getNextWord();
-						UserInterface.showMenuBoard(brd.getWordPlayer().toString(), sw.hint, maxTries-brd.getCurrentfails());
+						sw =   model.getNextWord();
 						action = loopGame(brd, sw, maxTries);
-						break;
-						 
-					}
+						
+						if(action== ACTION_WINNER)
+							 brd.addStrike();
+						
+						if(maxScore<brd.getStreak()){
+							//TODO guardar maxScore
+							maxScore =brd.getStreak();
+						}
+						
+						
+						if(action== ACTION_GAME_OVER)
+							brd.reset();
+						
+						break;		 
+						}
+					
 					case ACTION_LEVEL: {
 						maxTries=UserInterface.scanLevel();
+						action=ACTION_SHOW_MENU_INI;
 						break;
-					}
+						}
+					
 					case ACTION_RESET:{
-						//TODO
-						//brd.reset(brd., brd.getMaxFails());
-					}
+						brd.reset();
+						action=ACTION_PLAY;
+						}
 				}
-			
-			
-			
-			/*
-			switch(key){
-				case UserInterface.OPTION_JUGAR:
-					
-					main.HangedModel.SecretWord sw=model.getNextWord();
 				
-					exit=loopGame(brd, sw,  maxTries); 
-					
-				case UserInterface.OPTION_SALIR:
-					exit=true;
-					break;
-					
-				case UserInterface.OPTION_DIFICULTAD:
-					maxTries=UserInterface.scanLevel();
-					break;
-			} */
-			
-			
-			
-			
 		}while(action!=ACTION_EXIT);
 		
 	
 
 	}
-	/*
-	private static int scanOptionMenuAgain() {
-		// TODO Auto-generated method stub
-		return 0; 
-	}
 	
-	
-	public static int scanOptionMenuIni(){
-		String key = UserInterface.scanMenuInicio();
-		int r=0;
-		
-		switch(key){
-			case UserInterface.OPTION_JUGAR:
-				  r = ACTION_PLAY; break; 			  
-			case UserInterface.OPTION_SALIR:
-				  r = ACTION_EXIT;  break;
-			case UserInterface.OPTION_DIFICULTAD:
-				  r = ACTION_LEVEL; break;
-		}
-		return r; 
-	}*/
 	
 	public static int optionToAction(String action){
 		switch (action){
@@ -160,7 +128,7 @@ public class HangedMain {
 			return ACTION_EXIT;
 		
 		case UserInterface.OPTION_NO:
-			return ACTION_EXIT;
+			return ACTION_SHOW_MENU_INI;
 			
 		case UserInterface.OPTION_YES:
 			return ACTION_PLAY;
@@ -173,26 +141,42 @@ public class HangedMain {
 	
 	public static int loopGame(HangedBoard board, SecretWord sw,  int maxTry){
 		//TODO
-		boolean exit2=false;
+		boolean exitGame=false;
 		board.startGame(sw.word, maxTry);
 		int r=0;
 		
 		do{
-		
-			String key=null;
+			
+			UserInterface.showMenuBoard(board.getWordPlayer(), sw.hint, maxTry-board.getCurrentfails());
+			String key=UserInterface.scanOpcionMenuBoard();
 			switch(key){
-			case UserInterface.OPTION_SALIR:
-				
-				
-			case UserInterface.OPTION_RESET:
-				board.reset(sw.word.toCharArray(), maxTry);
-				
-				
-				//case anadir letra
+				case UserInterface.OPTION_SALIR:
+					r=ACTION_SHOW_MENU_INI;
+					exitGame=true;
+					break;
+				case UserInterface.OPTION_RESET:
+					r=ACTION_RESET; 
+					exitGame=true;
+				default:
+					if (board.hasLetterInWordPlayer(key.toCharArray()[0])){
+						System.out.println("Letra \""+ key.toCharArray()[0] + "\" ya utilizada, pruebe otra:");
+					}else{
+						board.addLetterToWordPlayer(key.toCharArray()[0]);
+						if (board.isWinner()){
+							r=ACTION_WINNER;
+							exitGame=true;
+						}else if ( board.isGameOver()){
+							r=ACTION_GAME_OVER; 
+							exitGame=true;
+						}else{
+							continue; 
+						}						
+					}
+					//case anadir letra
 				
 			}
-		}while(!exit2);
+		}while(!exitGame);
 		
-		return 0;
+		return r;
 	}
 }

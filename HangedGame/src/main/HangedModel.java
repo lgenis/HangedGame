@@ -83,9 +83,10 @@ public class HangedModel {
 		 * @param fileLine
 		 */
 		
-		private SecretWord(String fileLine){
+		
+		 private SecretWord(String fileLine){
 			String value[]=fileLine.split(":");				
-			if(value.length==2)
+			if(value.length!=2)
 				throw new RuntimeException("The string does not match the : format"); 
 				
 			this.word=value[0];
