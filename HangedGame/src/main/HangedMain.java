@@ -1,6 +1,7 @@
 package main;
 
-import main.HangedModel.SecretWord;
+//import main.HangedModel.SecretWord;
+import main.Dictionary.SecretWord;
 
 /**
  *  Aplicación para jugar Ahorcado similar a la publicada en: 
@@ -47,13 +48,13 @@ public class HangedMain {
 		
 		int maxScore=0;
 		int maxTries=5;
-		String key;
+		//String key;
 		
 		int action = 2; 
 		
-		HangedModel model = new HangedModel("C:\\poo\\git\\HangedGame\\HangedGame\\bin\\diccionario.dict");
+		Dictionary model = new Dictionary("C:\\poo\\git\\HangedGame\\HangedGame\\diccionario.dict");
 		HangedBoard brd = new HangedBoard();
-		HangedModel.SecretWord sw=null;
+		Dictionary.SecretWord sw=null;
 		
 		// TODO leet maxScore
 		// maxScore = 

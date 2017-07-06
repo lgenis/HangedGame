@@ -1,27 +1,16 @@
 package main;
 
+import java.util.ArrayList;
+
 
 import util.FileHelper;
 
-/**
- * Esta clase funciona como diccionario de palabras. Las palabras se guardaran en un archivo, cada linea 
- * correspondera a un par palabra:pista
- * 
- * @author campino
- *
- */
-@Deprecated
-public class HangedModel {
-	
-	private String[] newWord;
-	
-	@Deprecated
-	private String[] oldWord;
+public class Dictionary {
+	private ArrayList<SecretWord> list;
 
 	final String FILE_NAME;
 	
-	public HangedModel(String fileDictionary){
-		
+	public Dictionary(String fileDictionary){
 		FILE_NAME=fileDictionary;
 		loadWordsFromFile();
 	}
@@ -31,8 +20,16 @@ public class HangedModel {
 	 * Carga todo el diccionario de palabras desde el fichero
 	 */
 	private void loadWordsFromFile(){
-		newWord= FileHelper.readFile(this.FILE_NAME);
+		
+		String words[] = FileHelper.readFile(this.FILE_NAME);
+		list = new ArrayList<SecretWord>(words.length); 
+		
+	
+		for (String line: words){
+			list.add(new SecretWord(line));
+		}
 	}
+	
 	
 	/**
 	 * retorna una palabra seleccionada aleatoriamente del arreglo newWord
@@ -40,51 +37,48 @@ public class HangedModel {
 	 * es decir carga nuevamente las palabras desde el fichero con loadWords()
 	 * @return
 	 */
-	
-	
 	public SecretWord getNextWord(){
 		
-		if (newWord.length==0){
+		if (list.size()==0){
 			loadWordsFromFile();
 		}
 	
-		int index=(int) (newWord.length*(Math.random()));
+		int index=(int) (list.size()*(Math.random()));
 		
-		String palabra = newWord[index]; 
+		SecretWord palabra = list.get(index); 
 		removeFromNewWords(index); 
 		
-		return new SecretWord(palabra);  
+		return  palabra;  
 	}
-
-
+	
 	private void removeFromNewWords(int index) {
-		// TODO Auto-generated method stub
-		String[] reducedNewWord=new String[newWord.length-1];
+		//ArrayList<SecretWord> reducedList = new ArrayList<SecretWord>(list.size()-1);
 		
-		if(index<0 || index>=newWord.length) return;
 		
+		//String[] reducedNewWord=new String[list.length-1];
+		
+		if(index<0 || index>=list.size()) return;
+		/*
 		int j=0;
 		
-		for (int i=0; i<newWord.length; i++){
+		for (int i=0; i<list.size(); i++){
 			if(i!=index){
-				reducedNewWord[j]=newWord[i];
+				reducedList.set(i, list.get(i));
 				j++;
 			}
 		}
-		
-		newWord=reducedNewWord;
-		
+		list=reducedList;*/
+		list.remove(index);
 	}
 	
 	public static class SecretWord{
 		public final String word; // palabra secreta
 		public final String hint; // pista
+		
 		/**
 		 * Recibe String en formato archivo palabra:pista
 		 * @param fileLine
 		 */
-		
-		
 		 private SecretWord(String fileLine){
 			String value[]=fileLine.split(":");				
 			if(value.length!=2)
@@ -96,5 +90,4 @@ public class HangedModel {
 		}
 	}
 	
-
 }
